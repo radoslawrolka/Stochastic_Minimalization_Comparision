@@ -143,26 +143,55 @@
 \part{Wstęp}
 \section{Wybrane Algorytmy Minimalizacji}
 \subsection{Pure-Random-Search}
-TODO
+Losujemy po kolei zadaną z góry liczbę punktów z rozkładem jednostajnym w zadanej dziedzinie. Każdy wylosowany punkt porównujemy z aktualnie zapamiętanym minimum i jeśli wartość minimalizowanej funkcji w tym punkcie jest mniejsza, to ten punkt zapamiętujemy jako aktualny punkt minimalny. Wartość funkcji w ostatnim zapamiętanym punkcie stanowi wynik algorytmu.
 
 \subsection{Multi-Start}
-TODO
+Losujemy (podobnie jak poprzednio) zadaną liczbę punktów z rozkładem jednostajnym w dziedzinie przeszukiwania, a następnie z każdego z wylosowanych punktów startujemy numeryczną metodę optymalizacji lokalnej, z wykorzystaniem metody L-BFGS-B. Wynikiem algorytmu jest wartość optymalizowanej funkcji w tym z punktów zwróconych przez uruchomienia metody lokalnej, w którym ta wartość jest najmniejsza.
 
 \section{Wybrane Funkcje}
 \subsection{Alpine01}
-TODO
+Alpine01 jest funkcją wielowymiarową, która dla $n$ wymiarowego wektora $x = (x_1, ... , x_n) \in \[−10; 10\]^n$ zwraca wartość:
+\begin{equation*}
+    f(x) = \sum_{i=1}^{n} | x_i*sin(x_i) + 0.1*x_i |
+\end{equation*}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/Alpine01.png}
+  \caption{Wykres funkcji Alpine01 dla 2 wymiarów.}
+\end{figure}
 
 \subsection{funkcja Ackley’a}
-TODO
+Funkcja Ackley'a jest funkcją wielowymiarową, która dla $n$ wymiarowego wektora $x = (x_1, ... , x_n)$ zwraca wartość:
+\begin{equation*}
+    f(x) = -20e^{-0.2\sqrt{\frac{1}{n}\sum_{i=1}^{n} x^2_i}} - e^{\frac{1}{n}\sum_{i=1}^{n}cos(2\pi x_i)} + 20 + e
+\end{equation*}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/Ackley.png}
+  \caption{Wykres funkcji Ackley'a dla 2 wymiarów.}
+\end{figure}
 
 \newpage
 \part{Metodologia}
 \section{Sposób wykonania}
-TODO
+Porównania zostały wykonane dla obu metod w przypadkach, gdy liczba wymiarów wynosiła:
+\begin{itemize}
+    \item $dim = 2$
+    \item $dim = 10$
+    \item $dim = 20$
+\end{itemize}
+\par Dla każdego przypadku metoda została wykonana 50 razy. Ze względu na wielokrotne uruchamianie MS, wynikające z obliczania gradientu, Koszt wykonania będzie wyższy niż PRS. Aby zachować zrównoważony budżet wykorzystamy średni koszt MS wszystkich startów i proporcjonalnie zwiększymy koszt PRS.
 
 \section{Kod źródłowy}
 \subsection{Pure-Random-Search}
+\begin{lstlisting}[
+  style=vscode-darkplus-python,
+  caption={Funkcja wykorzystująca metodę PRS.},
+  label=lst:python_code,
+  captionpos=b
+]
 TODO
+\end{lstlisting}
 
 \subsection{Multi-Start}
 \begin{lstlisting}[
@@ -175,7 +204,6 @@ MS_Minimalize <- function(func, dim, points_quantity) {
   f <- func(dim)
   values <- c(1:points_quantity)
   counter <- c(1:points_quantity) 
-
   MS <- replicate(n = points_quantity, optim(runif(dim, 
                                                    getLowerBoxConstraints(f), 
                                                    getUpperBoxConstraints(f)), 
@@ -193,29 +221,70 @@ MS_Minimalize <- function(func, dim, points_quantity) {
 \end{lstlisting}
 
 \subsection{Porównanie metod}
+\begin{lstlisting}[
+  style=vscode-darkplus-python,
+  caption={Funkcja wykorzystująca t-testy.},
+  label=lst:python_code,
+  captionpos=b
+]
 TODO
-
-\subsection{}
+\end{lstlisting}
 
 \newpage
 \part{Porównanie}
 \section{dim = 2}
 \subsection{Wykresy Alpine01}
 \subsubsection{Pure-Random-Search}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim2_PRS_Alpine01_his.png}
+  \caption{Histogram funkcji Alpine01, metody PRS, dla 2 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim2_PRS_Alpine01.png}
+  \caption{Wykres pudełkowy funkcji Alpine01, metody PRS, dla 2 wymiarów.}
+\end{figure}
 
 \subsubsection{Multi-Start}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim2_MS_Alpine01_his.png}
+  \caption{Histogram funkcji Alpine01, metody MS, dla 2 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim2_MS_Alpine01.png}
+  \caption{Wykres pudełkowy funkcji Alpine01, metody MS, dla 2 wymiarów.}
+\end{figure}
 
 \subsubsection{Obserwacje}
 TODO
 
 \subsection{Wykresy funkcji Ackley’a}
 \subsubsection{Pure-Random-Search}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim2_PRS_Ackley_his.png}
+  \caption{Histogram funkcji Ackley'a, metody PRS, dla 2 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim2_PRS_Ackley.png}
+  \caption{Wykres pudełkowy funkcji Ackley'a, metody PRS, dla 2 wymiarów.}
+\end{figure}
 
 \subsubsection{Multi-Start}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim2_MS_Ackley_his.png}
+  \caption{Histogram funkcji Ackley'a, metody MS, dla 2 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim2_MS_Ackley.png}
+  \caption{Wykres pudełkowy funkcji Ackley'a, metody MS, dla 2 wymiarów.}
+\end{figure}
 
 \subsubsection{Obserwacje}
 TODO
@@ -223,20 +292,56 @@ TODO
 \section{dim = 10}
 \subsection{Wykresy Alpine01}
 \subsubsection{Pure-Random-Search}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim10_PRS_Alpine01_his.png}
+  \caption{Histogram funkcji Alpine01, metody PRS, dla 10 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim10_PRS_Alpine01.png}
+  \caption{Wykres pudełkowy funkcji Alpine01, metody PRS, dla 10 wymiarów.}
+\end{figure}
 
 \subsubsection{Multi-Start}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim10_MS_Alpine01_his.png}
+  \caption{Histogram funkcji Alpine01, metody MS, dla 10 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim10_MS_Alpine01.png}
+  \caption{Wykres pudełkowy funkcji Alpine01, metody MS, dla 10 wymiarów.}
+\end{figure}
 
 \subsubsection{Obserwacje}
 TODO
 
 \subsection{Wykresy funkcji Ackley’a}
 \subsubsection{Pure-Random-Search}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim10_PRS_Ackley_his.png}
+  \caption{Histogram funkcji Ackley'a, metody PRS, dla 10 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim10_PRS_Ackley.png}
+  \caption{Wykres pudełkowy funkcji Ackley'a, metody PRS, dla 10 wymiarów.}
+\end{figure}
 
 \subsubsection{Multi-Start}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim10_MS_Ackley_his.png}
+  \caption{Histogram funkcji Ackley'a, metody MS, dla 10 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim10_MS_Ackley.png}
+  \caption{Wykres pudełkowy funkcji Ackley'a, metody MS, dla 10 wymiarów.}
+\end{figure}
 
 \subsubsection{Obserwacje}
 TODO
@@ -244,20 +349,56 @@ TODO
 \section{dim = 20}
 \subsection{Wykresy Alpine01}
 \subsubsection{Pure-Random-Search}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim20_PRS_Alpine01_his.png}
+  \caption{Histogram funkcji Alpine01, metody PRS, dla 20 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim20_PRS_Alpine01.png}
+  \caption{Wykres pudełkowy funkcji Alpine01, metody PRS, dla 20 wymiarów.}
+\end{figure}
 
 \subsubsection{Multi-Start}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim20_MS_Alpine01_his.png}
+  \caption{Histogram funkcji Alpine01, metody MS, dla 20 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim20_MS_Alpine01.png}
+  \caption{Wykres pudełkowy funkcji Alpine01, metody MS, dla 20 wymiarów.}
+\end{figure}
 
 \subsubsection{Obserwacje}
 TODO
 
 \subsection{Wykresy funkcji Ackley’a}
 \subsubsection{Pure-Random-Search}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim20_PRS_Ackley_his.png}
+  \caption{Histogram funkcji Ackley'a, metody PRS, dla 20 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim20_PRS_Ackley.png}
+  \caption{Wykres pudełkowy funkcji Ackley'a, metody PRS, dla 20 wymiarów.}
+\end{figure}
 
 \subsubsection{Multi-Start}
-TODO
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim20_MS_Ackley_his.png}
+  \caption{Histogram funkcji Ackley'a, metody MS, dla 20 wymiarów.}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/dim20_MS_Ackley.png}
+  \caption{Wykres pudełkowy funkcji Ackley'a, metody MS, dla 20 wymiarów.}
+\end{figure}
 
 \subsubsection{Obserwacje}
 TODO
@@ -273,35 +414,7 @@ TODO
 \begin{itemize}
   \item Wykłady z Rachunku prawdopodobieństwa i statystyki, prowadzone przez dr hab. Macieja Smółkę, na 3 semestrze Informatyki AGH WI.
   \item \url{https://www.agh.edu.pl/o-agh/multimedia/znak-graficzny-agh/}
+  \item \url{http://infinity77.net/global_optimization/test_functions_nd_A.html}
 \end{itemize}
-
-
-
-
-
-\part{PRZYKŁADY}
-\section{jak-zrobic-kod}
-\begin{lstlisting}[
-  style=vscode-darkplus-python,
-  caption={Konstruktor klasy KdTree\_Visualizer.},
-  label=lst:python_code,
-  captionpos=b
-]
-from kdtree import KdTree_Visualizer
-
-points1 = [[1, 2], [3, 4], [5, 6]]
-# w folderze zostanie utworzony plik kdtree.gif
-Ktree1 = KdTree_Visualizer(points1, title='KdTree', filename='kdtree')
-# w folderze zostanie utworzony plik kdtree-construction.gif
-Ktree2 = KdTree_Visualizer(points1)
-\end{lstlisting}
-
-\section{jak-zrobic-foto}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{resources/dimensions_graph.png}
-  \caption{Wykres porównujący wydajność KdTree dla różnych ilości wymiarów.}
-  \label{fig:dimensions_graph}
-\end{figure}
 
 \end{document}
