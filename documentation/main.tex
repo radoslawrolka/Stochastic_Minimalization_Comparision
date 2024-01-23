@@ -1,0 +1,307 @@
+\documentclass{lab}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{tocloft}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{amsmath} 
+\usepackage{animate}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc} 
+\usepackage[top=0.5in, bottom=0.5in, left=0.5in, right=0.5in]{geometry}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{indentfirst}
+\usepackage{mathtools}
+\usepackage[export]{adjustbox}
+\usepackage{scrextend}
+\usepackage{animate}
+\usepackage{float}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\geometry{
+    margin=0.5in,
+    left=2.2cm,
+    right=2.2cm,
+    headheight=17pt,
+    headsep=1cm, % Increase the margin from the top for the header
+    includehead,
+    includefoot
+}
+
+% python color
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{caption}
+
+% Define VSC Dark+ colors
+\definecolor{vscode-background}{rgb}{0.0, 0.0, 0.0}
+\definecolor{vscode-foreground}{rgb}{0.96, 0.96, 0.96}
+\definecolor{vscode-comment}{rgb}{0.51, 0.51, 0.51}
+\definecolor{vscode-orange}{rgb}{1.0, 0.6, 0.0}
+\definecolor{vscode-yellow}{rgb}{0.98, 0.83, 0.26}
+\definecolor{vscode-green}{rgb}{0.19, 0.8, 0.35}
+\definecolor{vscode-cyan}{rgb}{0.16, 0.71, 0.73}
+\definecolor{vscode-blue}{rgb}{0.13, 0.48, 0.78}
+\definecolor{vscode-purple}{rgb}{0.58, 0.4, 0.72}
+\definecolor{vscode-pink}{rgb}{0.8, 0.36, 0.36}
+
+% Define the style
+\lstdefinestyle{vscode-darkplus-python}{
+    language=Python,
+    backgroundcolor=\color{vscode-background},
+    basicstyle=\color{vscode-foreground}\ttfamily\small,
+    commentstyle=\color{vscode-comment},
+    keywordstyle=\color{vscode-orange},
+    numberstyle=\tiny\color{vscode-comment},
+    numbers=left,
+    stringstyle=\color{vscode-green},
+    emphstyle=\color{vscode-pink},
+    frame=none,
+}
+% Change the caption label to "Kod źródłowy"
+\DeclareCaptionLabelFormat{myformat}{Kod źródłowy #2}
+
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{pythonhighlight}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{xpatch}
+
+\xpretocmd{\part}{\setcounter{section}{0}}{}{}
+\usepackage[margin=0.5in,
+    left=2.2cm,
+    right=2.2cm,
+    headheight=17pt,
+    includehead, includefoot]{geometry}
+    
+%% nagłówek
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Rachunek Prawdopodobieństwa i Statystyka}
+\lhead{Porównanie Algorytmów Minimalizacji Stochastycznej}
+\rfoot{\thepage}
+
+%% Podmiana \part na obecne wyświetlanie
+\makeatletter
+\renewcommand\@part[2][]{%
+  \ifnum \c@secnumdepth >-2\relax
+    \refstepcounter{part}%
+    \addcontentsline{toc}{part}{\thepart#2}%
+  \else
+    \addcontentsline{toc}{part}{#2}%
+  \fi
+  \markboth{}{}%
+  {\raggedright % Align title to the left
+   \interlinepenalty \@M
+   \normalfont
+   \ifnum \c@secnumdepth >-2\relax
+     \Large\bfseries \thepart\hspace{1em}%
+   \fi
+   \huge \bfseries #2\par}%
+  \@endpart
+}
+\makeatother
+
+\renewcommand\thepart{\Roman{part}. }
+
+\addtokomafont{labelinglabel}{\sffamily}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+
+
+\begin{document}
+\captionsetup[lstlisting]{labelformat=myformat}
+
+\begin{figure*}
+    \centering
+    \includegraphics{img/agh.png}
+\end{figure*}
+\title{\Huge \textbf{Porównanie Algorytmów Minimalizacji Stochastycznej}\\ Pure-Random-Search i Multi-Start}
+\author{Radosław Rolka, Mateusz Kochelski\\Rachunek Prawdopodobieństwa i Statystyka\\Informatyka WI AGH, II rok}
+\date{styczeń 2023}
+
+\maketitle
+\newpage
+\tableofcontents
+\thispagestyle{fancy} 
+\newpage
+
+\part{Wstęp}
+\section{Wybrane Algorytmy Minimalizacji}
+\subsection{Pure-Random-Search}
+TODO
+
+\subsection{Multi-Start}
+TODO
+
+\section{Wybrane Funkcje}
+\subsection{Alpine01}
+TODO
+
+\subsection{funkcja Ackley’a}
+TODO
+
+\newpage
+\part{Metodologia}
+\section{Sposób wykonania}
+TODO
+
+\section{Kod źródłowy}
+\subsection{Pure-Random-Search}
+TODO
+
+\subsection{Multi-Start}
+\begin{lstlisting}[
+  style=vscode-darkplus-python,
+  caption={Funkcja wykorzystująca metodę MS.},
+  label=lst:python_code,
+  captionpos=b
+]
+MS_Minimalize <- function(func, dim, points_quantity) {
+  f <- func(dim)
+  values <- c(1:points_quantity)
+  counter <- c(1:points_quantity) 
+
+  MS <- replicate(n = points_quantity, optim(runif(dim, 
+                                                   getLowerBoxConstraints(f), 
+                                                   getUpperBoxConstraints(f)), 
+                                             f, 
+                                             method = "L-BFGS-B",
+                                             lower = getLowerBoxConstraints(f), 
+                                             upper = getUpperBoxConstraints(f))
+  )
+  for (i in 1:points_quantity) {
+    values[i]  = MS[[2, i]]
+    counter[i] = MS[[3, i]][2] 
+  }
+  return (list(min(values), mean(counter)))
+}
+\end{lstlisting}
+
+\subsection{Porównanie metod}
+TODO
+
+\subsection{}
+
+\newpage
+\part{Porównanie}
+\section{dim = 2}
+\subsection{Wykresy Alpine01}
+\subsubsection{Pure-Random-Search}
+TODO
+
+\subsubsection{Multi-Start}
+TODO
+
+\subsubsection{Obserwacje}
+TODO
+
+\subsection{Wykresy funkcji Ackley’a}
+\subsubsection{Pure-Random-Search}
+TODO
+
+\subsubsection{Multi-Start}
+TODO
+
+\subsubsection{Obserwacje}
+TODO
+
+\section{dim = 10}
+\subsection{Wykresy Alpine01}
+\subsubsection{Pure-Random-Search}
+TODO
+
+\subsubsection{Multi-Start}
+TODO
+
+\subsubsection{Obserwacje}
+TODO
+
+\subsection{Wykresy funkcji Ackley’a}
+\subsubsection{Pure-Random-Search}
+TODO
+
+\subsubsection{Multi-Start}
+TODO
+
+\subsubsection{Obserwacje}
+TODO
+
+\section{dim = 20}
+\subsection{Wykresy Alpine01}
+\subsubsection{Pure-Random-Search}
+TODO
+
+\subsubsection{Multi-Start}
+TODO
+
+\subsubsection{Obserwacje}
+TODO
+
+\subsection{Wykresy funkcji Ackley’a}
+\subsubsection{Pure-Random-Search}
+TODO
+
+\subsubsection{Multi-Start}
+TODO
+
+\subsubsection{Obserwacje}
+TODO
+
+\newpage
+\part{Podsumowanie}
+\section{Podsumowanie}
+TODO
+
+\newpage
+\section{Bibliografia}
+Źródła i inspiracje wykorzystane przy tworzeniu projektu:
+\begin{itemize}
+  \item Wykłady z Rachunku prawdopodobieństwa i statystyki, prowadzone przez dr hab. Macieja Smółkę, na 3 semestrze Informatyki AGH WI.
+  \item \url{https://www.agh.edu.pl/o-agh/multimedia/znak-graficzny-agh/}
+\end{itemize}
+
+
+
+
+
+\part{PRZYKŁADY}
+\section{jak-zrobic-kod}
+\begin{lstlisting}[
+  style=vscode-darkplus-python,
+  caption={Konstruktor klasy KdTree\_Visualizer.},
+  label=lst:python_code,
+  captionpos=b
+]
+from kdtree import KdTree_Visualizer
+
+points1 = [[1, 2], [3, 4], [5, 6]]
+# w folderze zostanie utworzony plik kdtree.gif
+Ktree1 = KdTree_Visualizer(points1, title='KdTree', filename='kdtree')
+# w folderze zostanie utworzony plik kdtree-construction.gif
+Ktree2 = KdTree_Visualizer(points1)
+\end{lstlisting}
+
+\section{jak-zrobic-foto}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{resources/dimensions_graph.png}
+  \caption{Wykres porównujący wydajność KdTree dla różnych ilości wymiarów.}
+  \label{fig:dimensions_graph}
+\end{figure}
+
+\end{document}
