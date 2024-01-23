@@ -23,3 +23,5 @@ Pure Random Search, as the name suggests, is a straightforward stochastic optimi
 Multi-Start is an optimization technique that involves running a local optimization algorithm from multiple starting points. Instead of relying on a single initial guess, Multi-Start generates several starting points randomly or systematically and performs optimization from each of these points. The algorithm then compares the results from all runs and selects the best solution found.
 
 <img src="https://github.com/radoslawrolka/stata/blob/master/documentation/img/dim10_MS_Alpine01_his.png">
+
+----------------------------------------------------------------------------------------------------------
