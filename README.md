@@ -6,6 +6,8 @@ The comparisons were conducted for both methods in cases where the number of dim
   
 For each case, the method was executed 50 times. Due to the multiple runs of Multi-Start (MS), which involve gradient calculations, the cost of execution will be higher than that of Pure Random Search (PRS). To maintain a balanced budget, we will use the average cost of MS for all starts and proportionally increase the cost of PRS.
 
+[Documentation](https://github.com/radoslawrolka/Stochastic_Minimalization_Comparision/blob/master/documentation/report_Rolka_Kochelski.pdf)
+
 ## Chosen Functions
 ### Alpine01 Function
 <img src="https://github.com/radoslawrolka/stata/blob/master/documentation/img/Alpine01.png">
