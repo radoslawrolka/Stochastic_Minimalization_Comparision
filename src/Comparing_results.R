@@ -35,7 +35,7 @@ compare_MS_to_PRS = function(dim,func,numberOfRuns,NumberOfPoints) {
   MS_Counter = mean(as.numeric(MS_resultsCounter[2,]))
   MS_results = as.numeric(MS_resultsCounter[1,])
   PRS_results = replicate(numberOfRuns,PRS(func,dim,NumberOfPoints*MS_Counter))
-  t.test(MS_results,PRS_results,conf.level=0.95)
+  x = t.test(MS_results,PRS_results,conf.level=0.95)
   
   hist_plot = hist(MS_results, main = "Histogram dla algorytmu MS", xlab = "Zakresy minimów", ylab = "Ilość minimów")
   hist_filename = paste0("dim",dim,"_MS_",sub("^make(.*)Function$","\\1", as.character(substitute(func))),"_his.png")
@@ -51,7 +51,7 @@ compare_MS_to_PRS = function(dim,func,numberOfRuns,NumberOfPoints) {
   
   box_filename = paste0("dim",dim,"_MS_",sub("^make(.*)Function$","\\1", as.character(substitute(func))),".png")
   png(box_filename)
-  boxplot(PRS_results, main = "Wykres pudełkowy dla algorytmu PRS", ylab = "Zakres minimów")
+  boxplot(MS_results, main = "Wykres pudełkowy dla algorytmu MS", ylab = "Zakres minimów")
   dev.off()
   
   box_filename = paste0("dim",dim,"_PRS_",sub("^make(.*)Function$","\\1", as.character(substitute(func))),".png")
