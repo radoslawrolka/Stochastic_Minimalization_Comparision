@@ -190,7 +190,18 @@ Porównania zostały wykonane dla obu metod w przypadkach, gdy liczba wymiarów 
   label=lst:python_code,
   captionpos=b
 ]
-TODO
+PRS = function(func,dim,random_trials) {
+  f = func(dim)
+  result = Inf
+  RandomPoints = replicate(random_trials,
+                           runif(dim, 
+                                 getLowerBoxConstraints(f), 
+                                 getUpperBoxConstraints(f)))
+  for(i in 1:random_trials) {
+    result=min(result,f(RandomPoints[,i]))
+  }
+  return (result)
+}
 \end{lstlisting}
 
 \subsection{Multi-Start}
@@ -227,7 +238,13 @@ MS_Minimalize <- function(func, dim, points_quantity) {
   label=lst:python_code,
   captionpos=b
 ]
-TODO
+compare_MS_to_PRS = function(dim,func,numberOfRuns,NumberOfPoints) {
+  MS_resultsCounter = replicate(numberOfRuns,MS_Minimalize(func,dim,NumberOfPoints))
+  MS_Counter = mean(as.numeric(MS_resultsCounter[2,]))
+  MS_results = as.numeric(MS_resultsCounter[1,])
+  PRS_results = replicate(numberOfRuns,PRS(func,dim,NumberOfPoints*MS_Counter))
+  print(t.test(MS_results,PRS_results,conf.level=0.95))
+}
 \end{lstlisting}
 
 \newpage
