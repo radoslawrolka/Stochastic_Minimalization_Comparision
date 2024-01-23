@@ -1,0 +1,32 @@
+---
+title: "Untitled"http://127.0.0.1:15661/graphics/plot_zoom_png?width=1200&height=900
+author: "Mateusz Kochelski"
+date: "2024-01-22"
+output: pdf_document
+---
+
+```{r}
+library("smoof")
+PRS = function(func,dim,random_trials)
+{
+  f = func(dim)
+  result = Inf
+  RandomPoints = replicate(random_trials,runif(dim,getLowerBoxConstraints(f),getUpperBoxConstraints(f)))
+  for(i in 1:random_trials)
+  {
+    result=min(result,f(RandomPoints[,i]))
+  }
+  return (result)
+}
+```
+
+```{r}
+PRS_results = replicate(50,PRS(makeAlpine01Function,2,50))
+hist(PRS_results, main = "Histogram dla algorytmu MS", xlab = "Zakresy minimów", ylab = "Ilość minimów")
+```
+
+
+```{r}
+boxplot(PRS_results, main = "Histogram dla algorytmu MS", xlab = "Zakresy minimów", ylab = "Ilość minimów")
+```
+
